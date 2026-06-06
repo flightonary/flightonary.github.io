@@ -15,7 +15,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<BaseLayout title={`${entry.data.title} - 読書メモ`} activeTab="book">
+<BaseLayout subtitle={`${entry.data.title} - 読書メモ`} activeTab="book">
   <div class="main-layout">
     <main class="content">
       <article class="post wide-post">

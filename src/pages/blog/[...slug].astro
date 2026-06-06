@@ -15,7 +15,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<BaseLayout title={`${entry.data.title} - My Blog`} activeTab="blog">
+<BaseLayout subtitle={`${entry.data.title} - Blog`} activeTab="blog">
   <div class="main-layout sidebar-active">
     
     <main class="content">

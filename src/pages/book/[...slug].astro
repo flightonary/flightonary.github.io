@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const bookEntries = await getCollection('book');
+  return bookEntries.map(entry => ({
+    /* 💡 entry.slug から entry.id に変更 */
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={`${entry.data.title} - 読書メモ`} activeTab="book">
+  <div class="main-layout">
+    <main class="content">
+      <article class="post wide-post">
+        <div class="post-meta">[Book Memo]</div>
+        <h2 class="post-title">📖 {entry.data.title}</h2>
+        <hr />
+        <div class="post-body">
+          <Content />
+        </div>
+      </article>
+    </main>
+  </div>
+</BaseLayout>

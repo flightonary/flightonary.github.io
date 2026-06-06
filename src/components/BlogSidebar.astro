@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+
+const blogEntries = await getCollection('blog');
+blogEntries.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const recentPosts = blogEntries.slice(0, 5);
+
+interface ArchiveMap {
+  [year: string]: {
+    [month: string]: typeof blogEntries;
+  };
+}
+
+const blogArchiveData = blogEntries.reduce<ArchiveMap>((acc, entry) => {
+  const dateObj = new Date(entry.data.date);
+  const year = String(dateObj.getFullYear());
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+
+  if (!acc[year]) acc[year] = {};
+  if (!acc[year][month]) acc[year][month] = [];
+  acc[year][month].push(entry);
+  return acc;
+}, {});
+---
+
+<aside class="sidebar">
+  <section class="widget">
+    <h3>Recent Blogs</h3>
+    <ul>
+      {recentPosts.map(entry => (
+        <li>
+          <a href={`/blog/${entry.id}`}>
+            <span class="sidebar-date">{entry.data.date}</span>
+            <span class="sidebar-title">{entry.data.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="widget">
+    <h3>Blog Archives</h3>
+    {Object.keys(blogArchiveData).sort((a, b) => b.localeCompare(a)).map(year => (
+      <div class="archive-year-group">
+        <div class="archive-year">{year}年</div>
+        {Object.keys(blogArchiveData[year]).sort((a, b) => b.localeCompare(a)).map(month => (
+          <details class="archive-month-details">
+            <summary class="archive-month">
+              {parseInt(month, 10)}月 ({blogArchiveData[year][month].length})
+            </summary>
+            <ul class="archive-post-list">
+              {blogArchiveData[year][month].map(entry => (
+                <li>
+                  <a href={`/blog/${entry.id}`}>{entry.data.title}</a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        ))}
+      </div>
+    ))}
+  </section>
+</aside>

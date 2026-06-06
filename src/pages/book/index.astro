@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const bookEntries = await getCollection('book');
+bookEntries.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<BaseLayout title="読書メモ一覧 - My Knowledge Base" activeTab="book">
+  <div class="main-layout">
+    <main class="content">
+      <section class="archive-page">
+        <h2>読書メモ一覧</h2>
+        <p class="sub-text">タイトルを選択すると、詳細なメモを閲覧できます。</p>
+        <div class="all-posts-list">
+          {bookEntries.map(entry => (
+            /* 💡 entry.slug から entry.id に変更 */
+            <a href={`/book/${entry.id}`} class="all-post-item" style="text-decoration: none; color: inherit;">
+              <span class="all-post-date">📖 Memo</span>
+              <span class="all-post-title">{entry.data.title}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    </main>
+  </div>
+</BaseLayout>

@@ -1,0 +1,289 @@
+/* ==========================================================================
+   1. グローバルリセット & 基本設定
+   ========================================================================== */
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  color: #333333;
+  background-color: #f8f9fa;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* ==========================================================================
+   2. 全体レイアウトの基盤
+   ========================================================================== */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ヘッダー */
+.header {
+  padding: 20px 0;
+  border-bottom: 2px solid #eaeaea;
+}
+.header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #1a1a1a;
+  display: inline-block;
+}
+.header h1 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* メインレイアウト */
+.main-layout {
+  display: block;
+  margin: 30px 0;
+  flex: 1; /* フッターを最下部に固定するため */
+}
+
+/* Blog系のページ（sidebar-active）のときだけ2カラム化 */
+.main-layout.sidebar-active {
+  display: flex;
+  gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .main-layout.sidebar-active {
+    flex-direction: column;
+  }
+}
+
+.content {
+  flex: 3;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   3. ナビゲーションタブ
+   ========================================================================== */
+.nav-tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+.tab-btn {
+  display: inline-block;
+  background: #e2e8f0;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: #4a5568;
+  transition: all 0.2s;
+}
+.tab-btn:hover {
+  background: #cbd5e1;
+}
+.tab-btn.active {
+  background: #0066cc;
+  color: white;
+  font-weight: 500 !important;
+}
+
+/* ==========================================================================
+   4. 記事一覧（Blog & Book 共通のミニマルテキストリスト）
+   ========================================================================== */
+.archive-page h2 {
+  margin-top: 0;
+  font-size: 1.6rem;
+  color: #111;
+  border-bottom: 2px solid #0066cc;
+  padding-bottom: 8px;
+}
+.sub-text {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.all-posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.all-post-item {
+  display: flex;
+  padding: 14px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: transform 0.15s, box-shadow 0.15s, color 0.15s;
+  align-items: center;
+}
+.all-post-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  color: #0066cc;
+}
+.all-post-date {
+  font-weight: bold;
+  color: #888;
+  width: 120px;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+.all-post-title {
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   5. 記事詳細・Markdown表示エリア
+   ========================================================================== */
+.post-meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+.post-title {
+  margin: 0 0 15px 0;
+  font-size: 2rem;
+  color: #111;
+  line-height: 1.3;
+}
+.post-body {
+  font-size: 1.05rem;
+  color: #222;
+}
+
+.profile-page, .wide-post, .all-posts-list {
+  max-width: 850px;
+}
+
+/* Markdownのパース結果に対する装飾 */
+.post-body h2 { margin-top: 1.8em; border-bottom: 1px solid #ddd; padding-bottom: 0.3em; }
+.post-body h3 { margin-top: 1.5em; }
+.post-body code { background: #eee; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+.post-body pre { background: #2d3748; color: #fff; padding: 15px; border-radius: 6px; overflow-x: auto; }
+.post-body img { max-width: 100%; height: auto; border-radius: 4px; }
+
+.profile-card {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* ==========================================================================
+   6. 右側サイドパネル（Blog関連ページ）
+   ========================================================================== */
+.sidebar {
+  flex: 1;
+  min-width: 280px;
+}
+
+.widget {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  margin-bottom: 25px;
+}
+.widget h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+  border-left: 4px solid #0066cc;
+  padding-left: 8px;
+  color: #333;
+}
+.widget ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.widget li {
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.95rem;
+}
+.widget li:last-child { border-bottom: none; }
+
+.widget li a {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.15s, font-weight 0.15s;
+}
+.widget li a:hover {
+  color: #0066cc;
+  font-weight: bold;
+}
+.sidebar-date {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* アーカイブ（HTML標準 details/summary のスタイリング） */
+.archive-year {
+  font-weight: bold;
+  margin: 12px 0 6px 0;
+  color: #555;
+}
+.archive-month-details {
+  margin-bottom: 8px;
+}
+.archive-month {
+  padding: 6px 8px;
+  font-size: 0.95rem;
+  color: #333;
+  cursor: pointer;
+  list-style: none; /* デフォルトの三角形を消す（モダンブラウザ用） */
+}
+.archive-month::-webkit-details-marker {
+  display: none; /* Safari用の三角形消し */
+}
+.archive-month::before {
+  content: "▶ ";
+  font-size: 0.75rem;
+  color: #888;
+  margin-right: 4px;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+/* detailsが開いている（open属性がある）ときのスタイル指定 */
+.archive-month-details[open] .archive-month::before {
+  transform: rotate(90deg); /* 矢印を下に傾ける */
+}
+
+.archive-post-list {
+  padding-left: 15px !important;
+  margin-top: 5px;
+}
+.archive-post-list li a {
+  display: block !important;
+  font-size: 0.88rem !important;
+  padding: 4px 0 !important;
+}
+
+/* ==========================================================================
+   7. フッター
+   ========================================================================== */
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.85rem;
+  color: #888;
+  border-top: 1px solid #eaeaea;
+  margin-top: auto;
+}

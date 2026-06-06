@@ -1,0 +1,38 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title?: string;
+  activeTab: 'home' | 'blog' | 'book';
+}
+
+const { title = 'My Knowledge Base', activeTab } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>{title}</title>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1><a href="/">My Knowledge Base</a></h1>
+      <nav class="nav-tabs">
+        <a href="/" class={`tab-btn ${activeTab === 'home' ? 'active' : ''}`}>Home</a>
+        <a href="/blog" class={`tab-btn ${activeTab === 'blog' ? 'active' : ''}`}>Blog</a>
+        <a href="/book" class={`tab-btn ${activeTab === 'book' ? 'active' : ''}`}>Book メモ</a>
+      </nav>
+    </header>
+
+    <slot />
+
+    <footer class="footer">
+      <p>&copy; 2026 My Knowledge Base.</p>
+    </footer>
+  </div>
+</body>
+</html>

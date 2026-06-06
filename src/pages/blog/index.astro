@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogSidebar from '@/components/BlogSidebar.astro'; // 💡 部品をインポート
+
+const blogEntries = await getCollection('blog');
+blogEntries.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<BaseLayout title="Blog 一覧 - My Knowledge Base" activeTab="blog">
+  <div class="main-layout sidebar-active">
+    
+    <main class="content">
+      <section class="archive-page">
+        <h2>すべてのブログ記事</h2>
+        <div class="all-posts-list">
+          {blogEntries.map(entry => (
+            <a href={`/blog/${entry.id}`} class="all-post-item" style="text-decoration: none; color: inherit;">
+              <span class="all-post-date">{entry.data.date}</span>
+              <span class="all-post-title">{entry.data.title}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    </main>
+
+    {/* 💡 1行でスッキリ共通化 */}
+    <BlogSidebar />
+
+  </div>
+</BaseLayout>

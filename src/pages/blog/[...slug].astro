@@ -1,0 +1,36 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogSidebar from '@/components/BlogSidebar.astro'; // 💡 部品をインポート
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={`${entry.data.title} - My Blog`} activeTab="blog">
+  <div class="main-layout sidebar-active">
+    
+    <main class="content">
+      <article class="post">
+        <div class="post-meta">{entry.data.date}</div>
+        <h2 class="post-title">{entry.data.title}</h2>
+        <hr />
+        <div class="post-body">
+          <Content />
+        </div>
+      </article>
+    </main>
+
+    {/* 💡 1行でスッキリ共通化 */}
+    <BlogSidebar />
+
+  </div>
+</BaseLayout>

@@ -2,11 +2,14 @@
 import '@/styles/global.css';
 
 interface Props {
-  title?: string;
+  subtitle?: string;
   activeTab: 'home' | 'blog' | 'book';
 }
 
-const { title = 'My Knowledge Base', activeTab } = Astro.props;
+const { subtitle, activeTab } = Astro.props;
+
+const baseTitle = "Pseudo Engineer";
+const title = subtitle ? `${subtitle} - ${baseTitle}` : baseTitle;
 ---
 
 <!DOCTYPE html>

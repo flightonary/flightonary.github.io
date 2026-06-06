@@ -20,7 +20,7 @@ const { title = 'My Knowledge Base', activeTab } = Astro.props;
 <body>
   <div class="container">
     <header class="header">
-      <h1><a href="/">My Knowledge Base</a></h1>
+      <h1><a href="/">Pseudo Engineer</a></h1>
       <nav class="nav-tabs">
         <a href="/" class={`tab-btn ${activeTab === 'home' ? 'active' : ''}`}>Home</a>
         <a href="/blog" class={`tab-btn ${activeTab === 'blog' ? 'active' : ''}`}>Blog</a>
@@ -31,7 +31,7 @@ const { title = 'My Knowledge Base', activeTab } = Astro.props;
     <slot />
 
     <footer class="footer">
-      <p>&copy; 2026 My Knowledge Base.</p>
+      <p>&copy; 2026 flightonary</p>
     </footer>
   </div>
 </body>

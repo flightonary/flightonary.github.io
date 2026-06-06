@@ -10,8 +10,7 @@ bookEntries.sort((a, b) => a.data.title.localeCompare(b.data.title));
   <div class="main-layout">
     <main class="content">
       <section class="archive-page">
-        <h2>読書メモ一覧</h2>
-        <p class="sub-text">タイトルを選択すると、詳細なメモを閲覧できます。</p>
+        <h2>読書メモ</h2>
         <div class="all-posts-list">
           {bookEntries.map(entry => (
             /* 💡 entry.slug から entry.id に変更 */
